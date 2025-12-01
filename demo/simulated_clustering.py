@@ -171,47 +171,6 @@ def main(args: List[str]) -> None:
     plt.close(final_fig)
     print(f"Final cluster plot saved to: {final_plot_path}")
 
-        # --- Additional visualisation: Feature 1 vs Feature 3 ---
-    if len(feature_cols) >= 3:
-        print("Generating Feature 1 vs Feature 3 cluster plot...")
-
-        # Extract the two features manually (standardised values already in X)
-        X_final = final_df[feature_cols].to_numpy()
-        x1 = X_final[:, 0]   # Feature 1
-        x3 = X_final[:, 2]   # Feature 3
-
-        plt.figure()
-        scatter = plt.scatter(x1, x3, c=final_labels, cmap="tab10", alpha=0.9)
-
-        # Plot centroids (already in standardised space)
-        centroids = final_result["centroids"]
-        plt.scatter(
-            centroids[:, 0],
-            centroids[:, 2],
-            marker="h",
-            s=200,
-            linewidths=2,
-            edgecolor="black",
-            c=range(k_best),
-            cmap="tab10",
-            label="Centroids",
-        )
-        plt.legend()
-
-        plt.xlabel(f"{feature_cols[0]} (Feature 1)")
-        plt.ylabel(f"{feature_cols[2]} (Feature 3)")
-        plt.title(f"Cluster plot: Feature 1 vs Feature 3 (k = {k_best})")
-        plt.tight_layout()
-
-        f13_plot_path = os.path.join(OUTPUT_DIR, f"{base}_feature1_vs_feature3_k_best.png")
-        plt.savefig(f13_plot_path, dpi=150)
-        plt.close()
-
-        print(f"Feature 1 vs Feature 3 cluster plot saved to: {f13_plot_path}")
-    else:
-        print("Dataset has fewer than 3 numeric features — skipping Feature 1 vs Feature 3 plot.")
-
-
     # --- Supporting visualisation 1: silhouette vs k (if available) ---
     if "silhouette" in metrics_df.columns:
         print("Generating silhouette score vs k plot...")
