@@ -37,12 +37,19 @@ def assign_clusters(X: np.ndarray, centroids: np.ndarray) -> np.ndarray:
     """
     Assign each sample to the nearest centroid (Euclidean distance).
     """
+    X = np.asarray(X, dtype=float)
+    centroids = np.asarray(centroids, dtype=float)
+
     # X: (n_samples, n_features)
     # centroids: (k, n_features)
-    # Broadcast to compute distances
+    # diff: (n_samples, k, n_features)
     diff = X[:, np.newaxis, :] - centroids[np.newaxis, :, :]
-    distances = np.linalg.norm(diff, axis=1)  # (n_samples, k)
-    labels = np.argmax(distances, axis=1)
+
+    # distances: (n_samples, k)
+    distances = np.linalg.norm(diff, axis=2)
+
+    # choose nearest centroid
+    labels = np.argmin(distances, axis=1)
     return labels
 
 
