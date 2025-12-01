@@ -104,10 +104,10 @@ def main(args: List[str]) -> None:
     print(f"Metrics summary saved to: {metrics_csv}")
 
     # Plot some statistics (no elbow: avoid inertia vs k)
-    if "silhouette_score" in metrics_df.columns:
+    if "silhouette" in metrics_df.columns:
         print("Generating silhouette score summary plot...")
         plt.figure()
-        plt.bar(metrics_df["k"], metrics_df["silhouette_score"])
+        plt.bar(metrics_df["k"], metrics_df["silhouette"])
         plt.xlabel("k")
         plt.ylabel("Silhouette score")
         plt.title("Silhouette score for different k")
