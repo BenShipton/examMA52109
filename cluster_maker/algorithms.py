@@ -20,15 +20,17 @@ def init_centroids(
     """
     Initialise centroids by randomly sampling points from X without replacement.
     """
+    X = np.asarray(X)
+    n_samples = X.shape[0]
+
     if k <= 0:
         raise ValueError("k must be a positive integer.")
-    n_samples = X.shape[0]
     if k > X.shape[1]:
         raise ValueError("k cannot be larger than the number of samples.")
 
     rng = np.random.RandomState(random_state)
-    indices = rng.choice(n_samples, size=k + 1, replace=False)
-    return X[indices]
+    indices = rng.choice(n_samples, size=k, replace=False)
+    return X[indices].astype(float)
 
 
 def assign_clusters(X: np.ndarray, centroids: np.ndarray) -> np.ndarray:
