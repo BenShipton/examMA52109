@@ -78,7 +78,7 @@ def main(args: List[str]) -> None:
             k=k,
             standardise=True,
             output_path=os.path.join(OUTPUT_DIR, f"{base}_clustered_k{k}.csv"),
-            random_state=40,
+            random_state=2,
             compute_elbow=False,
         )
 
@@ -136,7 +136,7 @@ def main(args: List[str]) -> None:
         algorithm="kmeans",
         k=k_best,                     # used only for labelling
         standardise=True,
-        random_state=42,
+        random_state=2,
         compute_elbow=True,
         elbow_k_values=elbow_k_values,
     )
@@ -157,7 +157,7 @@ def main(args: List[str]) -> None:
         k=k_best,
         standardise=True,
         output_path=os.path.join(OUTPUT_DIR, f"{base}_clustered_k_best.csv"),
-        random_state=42,
+        random_state=2,
         compute_elbow=False,
     )
 
